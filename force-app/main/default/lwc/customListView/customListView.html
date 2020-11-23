@@ -1,0 +1,51 @@
+<template>
+    <lightning-card>
+        <div if:true={showSpinner} class="slds-spinner_brand">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+
+        <lightning-layout>
+            <lightning-layout-item padding="around-small" size="8">
+                <div></div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="3">
+                <div>
+                    <lightning-input type="search" onblur={handleKeyChange} class="slds-m-bottom_small"
+                        placeholder="Serach this list">
+                    </lightning-input>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="1">
+                <div class="set_filter">
+                    <div>
+                        <lightning-button-icon icon-name="utility:refresh" onclick={handleRefreshButtonClick}
+                            alternative-text="Refresh">
+                        </lightning-button-icon>
+                        <lightning-button-icon-stateful icon-name="utility:filterList" selected={filterState}
+                            onclick={handleFilterButtonClick} alternative-text="Show Filter"
+                            class="slds-m-left_xx-small"></lightning-button-icon-stateful>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+        <lightning-layout>
+            <lightning-layout-item size="12" class="first-item">
+                <div class="slds-table_header-fixed_container">
+                    <div class="datatable_size">
+                        <lightning-datatable key-field="Id" data={records} columns={columns} onsort={handleSortdata}
+                            sorted-by={sortedBy} sorted-direction={sortDirection} show-row-number-column="true"
+                            draft-values={draftValues} onsave={handleSave}>
+                        </lightning-datatable>
+                    </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="1" if:true={showFilter} class="second-item">
+                <lightning-card>
+                    <H1><b> Filters </b> </H1>
+                </lightning-card>
+            </lightning-layout-item>
+        </lightning-layout>
+
+    </lightning-card>
+</template>
